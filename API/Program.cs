@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddMediatR(typeof (Application.List.Query)
+builder.Services.AddMediatR(typeof(Application.List.Query)
                     .GetTypeInfo()
                     .Assembly);
 

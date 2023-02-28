@@ -19,22 +19,22 @@ namespace Security
         public Task<string> CreateTokenAsync(User user)
         {
             var claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Email , user.Email));
-        
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            claims.Add(new Claim(ClaimTypes.Email, user.Email));
 
-        var token = new JwtSecurityToken
-        (
-            configuration["Jwt:Issuer"],
-            configuration["Jwt:Audience"],
-            claims,
-            expires: DateTime.Now.AddMonths(15),
-            signingCredentials : credentials
-            
-        );
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
+            var token = new JwtSecurityToken
+            (
+                configuration["Jwt:Issuer"],
+                configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddMonths(15),
+                signingCredentials: credentials
+
+            );
+
+            return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
         }
     }
 }

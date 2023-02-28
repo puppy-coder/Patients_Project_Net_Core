@@ -21,14 +21,13 @@ public class PatientController : Controller
     public async Task<ActionResult<List<Patients>>> getPatients([FromQuery] Application.List.Query query)
     {
         return await Mediator.Send(query);
-    } 
+    }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Patients>> getPatientsById(Guid id)
     {
-        
-        return await Mediator.Send(new Application.ListById.Query{PatientId = id});
+
+        return await Mediator.Send(new Application.ListById.Query { PatientId = id });
     }
 
 }
-            

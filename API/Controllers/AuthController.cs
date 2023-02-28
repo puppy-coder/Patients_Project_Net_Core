@@ -11,7 +11,7 @@ using Security;
 public class AuthController : Controller
 {
     public IMediator Mediator { get; set; }
-    public ITokenHandler tokenHandler{get;set;}
+    public ITokenHandler tokenHandler { get; set; }
 
     public AuthController(IMediator mediator, ITokenHandler tokenHandler)
     {
@@ -20,19 +20,17 @@ public class AuthController : Controller
     }
 
     [HttpPost]
-
     public async Task<ActionResult> login([FromBody] Application.Login.Command command)
     {
         var user = await Mediator.Send(command);
 
-        if(user != null)
+        if (user != null)
         {
             var token = tokenHandler.CreateTokenAsync(user);
             return Ok(token);
         }
 
         return Unauthorized("Username or password is incorrect");
-    } 
+    }
 
 }
-            
